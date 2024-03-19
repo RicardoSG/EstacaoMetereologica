@@ -6,13 +6,13 @@
 #include <Insights.h>
 
 
-const char *service_name = "PROV_12345";
-const char *pop = "1234567";
+//const char *service_name = "PROV_12345";
+//const char *pop = "1234567";
 
-static uint8_t gpio_reset = 0;
-bool wifi_connected = 0;
+//static uint8_t gpio_reset = 0;
+//bool wifi_connected = 0;
 
-SimpleTimer Timer;
+//SimpleTimer Timer;
 
 
 //definitions to dht22 (humidity and temperature sensor)
@@ -20,9 +20,10 @@ SimpleTimer Timer;
 #define DHTTYPE DHT22   
 DHT dht(DHTPIN, DHTTYPE);
 
-static TemperatureSensor temperature("Temperature");
-static TemperatureSensor humidity("Humidity");
+//static TemperatureSensor temperature("Temperature");
+//static TemperatureSensor humidity("Humidity");
 
+/*
 void sysProvEvent(arduino_event_t *sys_event)
 {
   switch (sys_event->event_id) {
@@ -50,13 +51,14 @@ void sysProvEvent(arduino_event_t *sys_event)
       }
   }
 }
-
+*/
 
 void dht22_setup() {
     
-    pinMode(gpio_reset, INPUT);
+    //pinMode(gpio_reset, INPUT);
     dht.begin();
 
+/*
   Node my_node;
   my_node = RMaker.initNode("Microcontrollerslab");
 
@@ -77,13 +79,13 @@ void dht22_setup() {
 #else
   WiFiProv.beginProvision(WIFI_PROV_SCHEME_SOFTAP, WIFI_PROV_SCHEME_HANDLER_NONE, WIFI_PROV_SECURITY_1, pop, service_name);
 #endif
-  
+*/  
 }
 
 void dht22_loop() {
 
-  if (Timer.isReady() && wifi_connected) {                    
-    Serial.println("Sending Sensor Data");
+ // if (Timer.isReady() && wifi_connected) {                    
+ //   Serial.println("Sending Sensor Data");
 
   float h = dht.readHumidity();
   // Read temperature as Celsius (the default)
@@ -102,11 +104,12 @@ void dht22_loop() {
   Serial.print(F("°C "));
   Serial.println("");
 
-  temperature.updateAndReportParam("Temperature", t);
-  humidity.updateAndReportParam("Temperature", h);
-  Timer.reset();                        
-  }
+ // temperature.updateAndReportParam("Temperature", t);
+ // humidity.updateAndReportParam("Temperature", h);
+ // Timer.reset();                        
+ //}
 
+/*
   // Read GPIO0 (external button to reset device
   if (digitalRead(gpio_reset) == LOW) { //Push button pressed
     Serial.printf("Reset Button Pressed!\n");
@@ -129,4 +132,5 @@ void dht22_loop() {
     }
   }
   delay(100);
+*/
 }
