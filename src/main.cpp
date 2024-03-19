@@ -2,12 +2,14 @@
 #include <DHT_U.h>
 #include "dht22.h"
 #include "bme280.h"
+#include "rainSensor.h"
 
 void setup() {
   
   Serial.begin(115200);
   dht22_setup();
   bme_setup();
+  rainSensor_setup();
 }
 
 void loop() {
@@ -16,4 +18,5 @@ void loop() {
 
   dht22_loop(); 
   bme_loop();
+  rainSensor_loop();
 }
