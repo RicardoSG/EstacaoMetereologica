@@ -5,12 +5,12 @@
 #define DHTTYPE DHT22   
 DHT dht(DHTPIN, DHTTYPE);
 
-void dht22_setup(){
+void dht22_setup() {
     
     dht.begin();
 }
 
-void dht22_loop(){
+void dht22_loop() {
 
   float h = dht.readHumidity();
   // Read temperature as Celsius (the default)
