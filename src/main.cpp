@@ -3,20 +3,23 @@
 #include "dht22.h"
 #include "bme280.h"
 #include "rainSensor.h"
+#include "soilHumidity.h"
 
 void setup() {
   
   Serial.begin(115200);
-  dht22_setup();
-  bme_setup();
+  //dht22_setup();
+  //bme_setup();
   rainSensor_setup();
+  soil_setup();
 }
 
 void loop() {
   // Wait a few seconds between measurements.
   delay(2000);
 
-  dht22_loop(); 
-  bme_loop();
+  //dht22_loop(); 
+  //bme_loop();
   rainSensor_loop();
+  soil_loop();
 }

@@ -9,9 +9,9 @@ int chuvaD;
  
 void rainSensor_setup() {
 
-pinMode(analogicPin, INPUT);
-pinMode(LED, OUTPUT);
-digitalWrite(LED, LOW);
+    pinMode(analogicPin, INPUT);
+    pinMode(LED, OUTPUT);
+    digitalWrite(LED, LOW);
 }
  
  
