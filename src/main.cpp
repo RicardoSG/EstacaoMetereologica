@@ -10,7 +10,7 @@ void setup() {
   Serial.begin(115200);
   //dht22_setup();
   //bme_setup();
-  rainSensor_setup();
+  //rainSensor_setup();
   soil_setup();
 }
 
@@ -20,6 +20,6 @@ void loop() {
 
   //dht22_loop(); 
   //bme_loop();
-  rainSensor_loop();
+  //rainSensor_loop();
   soil_loop();
 }
