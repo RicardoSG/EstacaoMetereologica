@@ -19,7 +19,6 @@ unsigned long lastMsg = 0;
 char msg[MSG_BUFFER_SIZE];
 
 //functions mqtt
-
 void setup_wifi() {
 
   delay(10);
@@ -67,9 +66,11 @@ void reconnect() {
     if (client.connect(clientId.c_str())) {
       Serial.println("connected");
       // Once connected, publish an announcement...
-      client.publish("tempHum/publisher", "hello world");
+      client.publish("dht22/publisher", "DHT22 is on");
+      client.publish("bme280/publisher", "BME280 is on");
       // ... and resubscribe
-      client.subscribe("tempHum/subscriber");
+      client.subscribe("dht22/subscriber");
+      client.subscribe("bme280/subscriber");
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -87,7 +88,7 @@ void setup() {
   setup_wifi();
   
   dht22_setup();
-  //bme_setup();
+  bme_setup();
   //rainSensor_setup();
   //soil_setup();
 
@@ -100,14 +101,26 @@ void loop() {
   delay(2000);
 
   dht22_loop(); 
-  //bme_loop();
+  bme_loop();
   //rainSensor_loop();
   //soil_loop();
 
-  snprintf (msg, MSG_BUFFER_SIZE, "Umidade: %f", hum);
-  client.publish("tempHum/hum", msg); 
-  snprintf (msg, MSG_BUFFER_SIZE, "Temperatura %f", temp);
-  client.publish("tempHum/temp", msg);
+  //node-red to dht22
+  snprintf (msg, MSG_BUFFER_SIZE, "%0.01f", hum);
+  client.publish("dht22/hum", msg); 
+  snprintf (msg, MSG_BUFFER_SIZE, "%0.01f", temp);
+  client.publish("dht22/temp", msg);
+
+  //node-red to bme280
+  snprintf (msg, MSG_BUFFER_SIZE, "%0.01f", bme_temp);
+  client.publish("bme280/temp", msg);
+  snprintf (msg, MSG_BUFFER_SIZE, "%0.01f",bme_patm);
+  client.publish("bme280/patm", msg);
+  snprintf (msg, MSG_BUFFER_SIZE, "%0.01f", bme_seaLevel);
+  client.publish("bme280/seaLevel", msg); 
+  snprintf (msg, MSG_BUFFER_SIZE, "%0.01f", bme_hum);
+  client.publish("bme280/hum", msg);
+  
 
    if (!client.connected()) {
       reconnect();
